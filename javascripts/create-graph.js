@@ -1,5 +1,5 @@
 
-// parsing the csv
+// parsing the csv using papaparse
 function parseData(createGraph) {
 	Papa.parse("../data/air-data-vratsa-01-2019.csv", {
 		download: true,
@@ -9,12 +9,17 @@ function parseData(createGraph) {
 	});
 }
 
-String.prototype.replaceAll = function(str1, str2, ignore) 
-{
+String.prototype.replaceAll = function(str1, str2, ignore)  {
     return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
 } 
 
-// 
+function changeDateDelimiter(dates) {
+	for (let j = 0; j < dates.length; j++) {
+		dates[j] = dates[j].replaceAll('/', '-');
+	}
+}
+
+// creating graph using c3js
 function createGraph(data) {
 	let dates = ["x"];
 	let airQuallity = ["januryAir"];
@@ -25,70 +30,25 @@ function createGraph(data) {
 		airQuallity.push(data[i][3]);
 	}
 
-	for (let j = 0; j < dates.length; j++) {
-		// for (let k = 0; k < dates[j].length; k++) {
-			dates[j] = dates[j].replaceAll('/', '-')
-		// }	
-	}
+	// reformatting the delimiter
+	//changeDateDelimiter(dates);
 
-	console.log(dates);
-	console.log(airQuallity);
+	// console.log(dates);
+	// console.log(airQuallity);
 
-	let testdate1 = ["x", "2013-01-01", "2013-01-02", "2013-01-03"];
-	let data1 = ["data1", "30", "200", "100"];
+	// let testdate1 = ["x", "2013-01-01", "2013-01-02", "2013-01-03"];
+	// let data1 = ["data1", "30", "200", "100"];
 
-	console.log(testdate1);
-	console.log(data1);
+	// console.log(testdate1);
+	// console.log(data1);
 
 
 	// generating chart
-	// let chart = c3.generate({
-	// 	bindto: '#chart',
-	//     data: {
-	//         columns: [
-	//         	airQuallity
-	//         ]
-	//     },
-	//     axis: {
-	//         x: {
-	//             type: 'category',
-	//             categories: dates,
-	//             tick: {
-	//             	multiline: false,
- //                	culling: {
- //                    	max: 12
- //                	}
- //            	}
-	//         },
-
-	//         y: {
-	//         	label: { 
-	//         		text: 'microgram/m3',
-	// 	        	position: 'outer-middle'
-	// 	        },
-	// 	        padding: {
-	// 	        	top: 100, 
-	// 	        	bottom: 50
-	// 	        }
-
-	// 	    }
-
-	//     },
-
-	//     zoom: {
- //        	enabled: true
- //    	},
-
-	//     legend: {
-	//         position: 'bottom'
-	//     }
-	// });
-
 	var chart = c3.generate({
 		bindto: '#chart',
 	    data: {
 	        x: 'x',
-	//        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
+	    	xFormat: '%Y/%m/%d', // 'xFormat' can be used as custom format of 'x'
 	        columns: [
 	        	dates,
 	        	airQuallity
@@ -98,7 +58,8 @@ function createGraph(data) {
 	        x: {
 	            type: 'timeseries',
 	            tick: {
-	                format: '%Y-%m-%d'
+	                format: '%Y-%m-%d',
+	                // culling: { max: 7 }
 	            }
 	        },
 
@@ -113,8 +74,19 @@ function createGraph(data) {
 		        }
 
 		    }
+
+	    },
+
+		zoom: {
+			enabled: true
+		},
+		
+		legend: {
+	        position: 'bottom'
 	    }
 	});
 }
 
 parseData(createGraph);
+
+
