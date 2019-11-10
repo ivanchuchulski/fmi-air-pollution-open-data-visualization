@@ -22,7 +22,7 @@ function changeDateDelimiter(dates) {
 // creating graph using c3js
 function createGraph(data) {
 	let dates = ["x"];
-	let airQuallity = ["januryAir"];
+	let airQuallity = ["JanuaryAir"];
 
 	// getting the data 
 	for (let i = 5; i < data.length - 10; i++) {
@@ -59,23 +59,35 @@ function createGraph(data) {
 	            type: 'timeseries',
 	            tick: {
 	                format: '%Y-%m-%d',
-	                // culling: { max: 7 }
+	                culling: { max: 12 }
 	            }
 	        },
 
 	        y: {
 	        	label: { 
-	        		text: 'microgram/m3',
+	        		text: 'Финни прахови частици',
 		        	position: 'outer-middle'
-		        },
+				},
+				
+				tick: {
+	               format: function (d) { return d + "µg/m3"; }
+				},
+
 		        padding: {
 		        	top: 100, 
 		        	bottom: 50
-		        }
-
+				},
 		    }
 
 	    },
+
+		grid: {
+			y: {
+				lines: [
+					{value: 50, text: 'norm', position: 'middle'},
+				]
+			}
+		},
 
 		zoom: {
 			enabled: true
