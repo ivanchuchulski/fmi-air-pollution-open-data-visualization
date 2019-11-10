@@ -22,7 +22,7 @@ function changeDateDelimiter(dates) {
 // creating graph using c3js
 function createGraph(data) {
 	let dates = ["x"];
-	let airQuallity = ["JanuaryAir"];
+	let airQuallity = ["Януари"];
 
 	// getting the data 
 	for (let i = 5; i < data.length - 10; i++) {
@@ -31,7 +31,7 @@ function createGraph(data) {
 	}
 
 	// reformatting the delimiter
-	//changeDateDelimiter(dates);
+	// changeDateDelimiter(dates);
 
 	// console.log(dates);
 	// console.log(airQuallity);
@@ -65,7 +65,7 @@ function createGraph(data) {
 
 	        y: {
 	        	label: { 
-	        		text: 'Финни прахови частици',
+	        		text: 'Ниво на Фини прахови частици',
 		        	position: 'outer-middle'
 				},
 				
