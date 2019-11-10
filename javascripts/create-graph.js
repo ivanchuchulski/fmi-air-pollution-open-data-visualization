@@ -62,7 +62,6 @@ function createGraph(data) {
 	                culling: { max: 12 }
 	            }
 	        },
-
 	        y: {
 	        	label: { 
 	        		text: 'Ниво на Фини прахови частици',
