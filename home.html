@@ -3,11 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="Project on open data Visualization">
     <title>Open Data Visualization</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ 
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Load c3.css -->
+  <link href="stylesheets/c3.css" rel="stylesheet" type="text/css">
+
+  <!-- Load d3 and c3 -->
+  <script src="javascripts/d3.min.js" charset="utf-8"></script>
+  <script src="javascripts/c3.min.js"></script>
+
+  <!-- Load papaparse -->
+  <script src="javascripts/papaparse.min.js"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="stylesheets/cover.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -25,32 +38,66 @@
         }
       }
     </style>
-    <!-- Custom styles for this template -->
-    <link href="cover.css" rel="stylesheet">
+
+<script>
+     function myFunction(){
+       var element = document.getElementById("graphics");
+      if(element.style.display == "none"){
+        element.style.display = "inline"; }
+      else {
+        element.style.display = "none";
+      }};
+    </script>
+
+
+
   </head>
   <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="masthead mb-auto">
     <div class="inner">
-      <h3 class="masthead-brand">Project Visualization</h3>
+      <h1 class="masthead-brand">Околна среда</h1>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="#">Home</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Contact</a>
+        <a class="nav-link active" href="#" style="font-size:  32px;">Регионална инспекция по околната среда и водите - гр. Плевен</a>
       </nav>
     </div>
   </header>
 
-  <main role="main" class="inner cover">
-    <h1 class="cover-heading"> Ne znam kakvo pravq </h1>
-    <img src="images/loading_screen.jpg"/>
-  </main>
+<div class="container">
+    <button id="generate" type="button" class="btn btn-primary" onclick="myFunction()">Generate graphic</button>
+</div>
+
+<div id="graphics" style="display:none;">
+   <main role="main" class="inner cover">
+      <div class="container">
+       <div id="chart"></div>
+      </div>
+      <script src="javascripts/create-graph.js"></script>
+  </main>  
+</div>
+
+  
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
-      <p class="lead">Project in initialization phase</p>
+      <p class="lead" style="font-size: 20px; font-weight:bolder;">Fuck web development</p>
+
+          <div class="media">  
+           <img src="images/euro-union.svg"  class="align-self-left" alt="euro-union">
+           <img src="images/download.gif" class="align-self-right" alt="gifokolnasredaivodi">
+          
+          <div class="media-body">
+            <h5 class="mt-0">Информация</h5>
+            <p>Справка за нивата на фини прахови частици
+           в атмосферния въздух на територията на РИОСВ-Плевен</p>
+           <p>Порталът за отворени данни на Република България 
+              е разработен в изпълнение на Проект: BG05SFOP001-2.001-0001 „Подобряване на процесите, свързани с предоставянето, достъпа и повторното използване на информацията
+               от обществения сектор“, финансиран по Оперативна програма „Добро управление“</p>
+          </div>
+        </div>
     </div>
   </footer>
 </div>
 </body>
+
 </html>
