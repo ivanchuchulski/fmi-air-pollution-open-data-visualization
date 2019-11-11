@@ -1,7 +1,6 @@
 // parsing the csv using papaparse
 function parseData(createGraph) {
 	Papa.parse("../data/air-quality-pleven-01-03-2018.csv", {
-	// Papa.parse("../data/air-data-vratsa-01-2019.csv", {
 		download: true,
 		complete: function(results) {
 			createGraph(results.data);
@@ -31,65 +30,60 @@ function createGraph(data) {
 	let march = ["Март"];
 
 	// getting the data 
-	for (let i = 0; i < data.length; i++) {
-		if (i < januaryNumberOfDays) {
-			dates.push(data[i][2]);
-			january.push(data[i][3]);
-		}
-		else if (i >= januaryNumberOfDays &&  i < februaryNumberOfDays) {
-			february.push(data[i][3]);
-		}
-		else if (i >= februaryNumberOfDays && i < marhcNumberOfDays) {
-			march.push(data[i][3]);
-		}
+	for (let i = 0; i < januaryNumberOfDays; i++) {
+		dates.push(data[i][2]);
+		january.push(data[i][3]);
+	}
+	for (let i = januaryNumberOfDays; i < februaryNumberOfDays; i++) {
+		february.push(data[i][3]);
+	}
+	for (let i = februaryNumberOfDays; i < marhcNumberOfDays; i++) {
+		march.push(data[i][3]);
 	}
 
-	// reformatting the delimiter
-	changeDateDelimiter(dates);
 	// console.log(data);
-	console.log(dates);
-	console.log(january);
-	console.log(february);
-	console.log(march);
+	// console.log(dates);
+	// console.log(january);
+	// console.log(february);
+	// console.log(march);
 
-	// let testdate1 = ["x", "2013-01-01", "2013-01-02", "2013-01-03"];
-	// let data1 = ["data1", "30", "200", "100"];
 
-	// console.log(testdate1);
-	// console.log(data1);
-
+	// let colors = ['#ff0000', '#00ff00','#03fcb6'];
 
 	// generating chart
-	var chart = c3.generate({
+	let chart = c3.generate({
 		bindto: '#chart',
 	    data: {
 	        x: 'x',
-	    	xFormat: '%m-%d-%Y', // 'xFormat' can be used as custom format of 'x'
+	    	xFormat: '%m/%d/%Y', // 'xFormat' can be used as custom format of 'x'
 	        columns: [
 	        	dates,
 				january,
 				february,
 				march
-	        ]
-	    },
+			],
+		},
+		
 	    axis: {
 	        x: {
 	            type: 'timeseries',
 	            tick: {
-	                format: '%Y-%m-%d',
-	                culling: { max: 12 }
-	            }
+	                format: '%Y-%d',
+					culling: { max: 12 }
+				},
+				label: {
+					text: 'дати от месеца',
+					position: 'outer-right'
+				}
 	        },
 	        y: {
-	        	label: { 
-	        		text: 'Ниво на Фини прахови частици',
-		        	position: 'outer-middle'
-				},
-				
 				tick: {
 	               format: function (d) { return d + "µg/m3"; }
 				},
-
+				label: { 
+	        		text: 'Ниво на Фини прахови частици',
+		        	position: 'outer-middle'
+				},
 		        padding: {
 		        	top: 100, 
 		        	bottom: 50
@@ -101,7 +95,7 @@ function createGraph(data) {
 		grid: {
 			y: {
 				lines: [
-					{value: 50, text: 'norm', position: 'middle'},
+					{value: 50, text: 'макс допустима', position: 'start'},
 				]
 			}
 		},
@@ -117,3 +111,4 @@ function createGraph(data) {
 }
 
 parseData(createGraph);
+
