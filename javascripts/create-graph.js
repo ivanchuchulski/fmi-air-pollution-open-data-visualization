@@ -1,7 +1,7 @@
-
 // parsing the csv using papaparse
 function parseData(createGraph) {
-	Papa.parse("../data/air-data-vratsa-01-2019.csv", {
+	Papa.parse("../data/air-quality-pleven-01-03-2018.csv", {
+	// Papa.parse("../data/air-data-vratsa-01-2019.csv", {
 		download: true,
 		complete: function(results) {
 			createGraph(results.data);
@@ -21,20 +21,36 @@ function changeDateDelimiter(dates) {
 
 // creating graph using c3js
 function createGraph(data) {
+	let januaryNumberOfDays = 31;
+	let februaryNumberOfDays = januaryNumberOfDays + 28;
+	let marhcNumberOfDays = februaryNumberOfDays + 31;
+
 	let dates = ["x"];
-	let airQuallity = ["Януари"];
+	let january = ["Януари"];
+	let february = ["Февруари"];
+	let march = ["Март"];
 
 	// getting the data 
-	for (let i = 5; i < data.length - 10; i++) {
-		dates.push(data[i][2]);
-		airQuallity.push(data[i][3]);
+	for (let i = 0; i < data.length; i++) {
+		if (i < januaryNumberOfDays) {
+			dates.push(data[i][2]);
+			january.push(data[i][3]);
+		}
+		else if (i >= januaryNumberOfDays &&  i < februaryNumberOfDays) {
+			february.push(data[i][3]);
+		}
+		else if (i >= februaryNumberOfDays && i < marhcNumberOfDays) {
+			march.push(data[i][3]);
+		}
 	}
 
 	// reformatting the delimiter
-	// changeDateDelimiter(dates);
-
-	// console.log(dates);
-	// console.log(airQuallity);
+	changeDateDelimiter(dates);
+	// console.log(data);
+	console.log(dates);
+	console.log(january);
+	console.log(february);
+	console.log(march);
 
 	// let testdate1 = ["x", "2013-01-01", "2013-01-02", "2013-01-03"];
 	// let data1 = ["data1", "30", "200", "100"];
@@ -48,10 +64,12 @@ function createGraph(data) {
 		bindto: '#chart',
 	    data: {
 	        x: 'x',
-	    	xFormat: '%Y/%m/%d', // 'xFormat' can be used as custom format of 'x'
+	    	xFormat: '%m-%d-%Y', // 'xFormat' can be used as custom format of 'x'
 	        columns: [
 	        	dates,
-	        	airQuallity
+				january,
+				february,
+				march
 	        ]
 	    },
 	    axis: {
@@ -99,5 +117,3 @@ function createGraph(data) {
 }
 
 parseData(createGraph);
-
-
