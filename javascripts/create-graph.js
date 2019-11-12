@@ -54,7 +54,7 @@ function createGraph(data) {
 	let chart = c3.generate({
 		bindto: '#chart',
 		size: {
-			height: 350,
+			height: 500,
 			width : 1200
 		},
 		data: {
