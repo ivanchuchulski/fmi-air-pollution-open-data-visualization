@@ -137,7 +137,7 @@ function createGraph(dates, first, second, third) {
 		bindto: '#chart',
 		size: { 
 			height : 500,
-			width : 1300
+			width : 1700
 		},
 	    data: {
 	        x: 'x',
