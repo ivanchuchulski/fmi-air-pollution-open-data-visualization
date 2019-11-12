@@ -135,6 +135,10 @@ function createGraph(dates, first, second, third) {
 	// generating chart
 	let chart = c3.generate({
 		bindto: '#chart',
+		size: { 
+			height : 500,
+			width : 1300
+		},
 	    data: {
 	        x: 'x',
 	    	xFormat: '%m/%d/%Y',
