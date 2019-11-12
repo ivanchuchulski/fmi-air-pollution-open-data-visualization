@@ -53,7 +53,11 @@ function createGraph(data) {
 	// generating chart
 	let chart = c3.generate({
 		bindto: '#chart',
-	    data: {
+		size: {
+			height: 350,
+			width : 1200
+		},
+		data: {
 	        x: 'x',
 	    	xFormat: '%m/%d/%Y', // 'xFormat' can be used as custom format of 'x'
 	        columns: [

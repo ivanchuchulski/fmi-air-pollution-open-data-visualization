@@ -37,6 +37,8 @@
           font-size: 3.5rem;
         }
       }
+
+      
     </style>
 
 <script>
@@ -57,47 +59,104 @@
   <header class="masthead mb-auto">
     <div class="inner">
       <h1 class="masthead-brand">Околна среда</h1>
-      <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="#" style="font-size:  32px;">Регионална инспекция по околната среда и водите - гр. Плевен</a>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+      
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown link
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </nav>
-    </div>
   </header>
 
 <div class="container">
     <button id="generate" type="button" class="btn btn-primary" onclick="myFunction()">Generate graphic</button>
 </div>
 
+
 <div id="graphics" style="display:none;">
    <main role="main" class="inner cover">
-      <div class="container">
+      <div class="container-fluid">
        <div id="chart"></div>
       </div>
       <script src="javascripts/create-graph.js"></script>
-  </main>  
+    </main>  
 </div>
+
+<!-- Footer -->
+<footer class="page-footer font-small teal pt-4">
+
+    <!-- Footer Text -->
+    <div class="container-fluid text-center text-md-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+  
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+            repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae
+            harum esse fugiat. Itaque, culpa?</p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <hr class="clearfix w-100 d-md-none pb-3">
+  
+        <!-- Grid column -->
+        <div class="col-md-6 mb-md-0 mb-3">
+  
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
+            commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
+            excepturi hic.</p>
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Text -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright: SPASI
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
 
   
-
-  <footer class="mastfoot mt-auto">
-    <div class="inner">
-      <p class="lead" style="font-size: 20px; font-weight:bolder;">Fuck web development</p>
-
-          <div class="media">  
-           <img src="images/euro-union.svg"  class="align-self-left" alt="euro-union">
-           <img src="images/download.gif" class="align-self-right" alt="gifokolnasredaivodi">
-          
-          <div class="media-body">
-            <h5 class="mt-0">Информация</h5>
-            <p>Справка за нивата на фини прахови частици
-           в атмосферния въздух на територията на РИОСВ-Плевен</p>
-           <p>Порталът за отворени данни на Република България 
-              е разработен в изпълнение на Проект: BG05SFOP001-2.001-0001 „Подобряване на процесите, свързани с предоставянето, достъпа и повторното използване на информацията
-               от обществения сектор“, финансиран по Оперативна програма „Добро управление“</p>
-          </div>
-        </div>
-    </div>
-  </footer>
 </div>
 </body>
-
 </html>
