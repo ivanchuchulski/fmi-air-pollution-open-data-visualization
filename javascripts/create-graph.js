@@ -65,9 +65,9 @@ function prepareData(parsedData, quarter) {
 	let second = [];
 	let third = [];
 
-	let timesFirst = [];
-	let timesSecond = [];
-	let timesThird = [];
+	let excessFirst = [];
+	let excessSecond = [];
+	let excessThird = [];
 
 	switch (quarter) {
 		case 1:
@@ -75,53 +75,73 @@ function prepareData(parsedData, quarter) {
 			second.push('Февруари');
 			third.push('Март');
 
-			timesFirst.push('Януари');
-			timesSecond.push('Февруари');
-			timesThird.push('Март');
+			excessFirst.push('Януари');
+			excessSecond.push('Февруари');
+			excessThird.push('Март');
 			break;
 		case 2:
 			first.push('Април');
 			second.push('Май');
 			third.push('Юни');
 
-			timesFirst.push('Април');
-			timesSecond.push('Май');
-			timesThird.push('Юни');
+			excessFirst.push('Април');
+			excessSecond.push('Май');
+			excessThird.push('Юни');
 			break;
 		case 3:
 			first.push('Юли');
 			second.push('Август');
 			third.push('Септември');
 
-			timesFirst.push('Юли');
-			timesSecond.push('Август');
-			timesThird.push('Септември');
+			excessFirst.push('Юли');
+			excessSecond.push('Август');
+			excessThird.push('Септември');
 			break;
 		case 4:
 			first.push('Октомври');
 			second.push('Ноември');
 			third.push('Декември');
 
-			timesFirst.push('Октомври');
-			timesSecond.push('Ноември');
-			timesThird.push('Декември');
+			excessFirst.push('Октомври');
+			excessSecond.push('Ноември');
+			excessThird.push('Декември');
 			break;
 	}
 
 	// 
 	for (let i = 0; i < limit1; i++) {
 		first.push(parsedFirst[i][3]);
-		timesFirst.push(parsedFirst[i][4]);
+		excessFirst.push(parsedFirst[i][4]);
 	}
 	for (let i = 0; i < limit2; i++) {
 		second.push(parsedSecond[i][3]);
-		timesSecond.push(parsedSecond[i][4]);
+		excessSecond.push(parsedSecond[i][4]);
 	}
 	for (let i = 0; i < limit3; i++) {
 		third.push(parsedThird[i][3]);
-		timesThird.push(parsedThird[i][4]);
+		excessThird.push(parsedThird[i][4]);
 	}
 
+	let firstQuarterColors = ['#e37302', '#02e364', '#0255e3'];
+	let secondQuarterColors = ['#fd8c1c', '#1cfd7d', '#1c6efd'];
+	let thirdQuarterColors = ['#fda64e', '#4efd9a', '#4e8efd'];
+	let forthQuarterColors = ['#b15902', '#02b14e', '#0242b1'];
+	let colorsToDisplay;
+
+	switch (quarter) {
+		case 1:
+			colorsToDisplay = firstQuarterColors;
+			break;
+		case 2:
+			colorsToDisplay = secondQuarterColors;
+			break;
+		case 3:
+			colorsToDisplay = thirdQuarterColors;
+			break;
+		case 4:
+			colorsToDisplay = forthQuarterColors;
+			break;
+	}
 	// checks
 	// console.log(parsedData);
 	// console.log(parsedFirst);
@@ -138,32 +158,26 @@ function prepareData(parsedData, quarter) {
 	// console.log("third");
 	// console.log(third);
 
-	createGraph(quarter, dates, first, second, third, timesFirst, timesSecond, timesThird);
+	// what i want to do 
+	// if (graphChoice.localeCompare("pollution") == 0)
+	// {
+	// 	createPollutionGraph(colorsToDisplay, dates, first, second, third);
+	// }
+	// else if (graphChoice.localeCompare("excess"))
+	// {
+	// 	createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
+	// }
+
+
+	// createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
+	// createPollutionGraph(colorsToDisplay, dates, first, second, third);
+
+	createGraph(colorsToDisplay, dates, first, second, third, excessFirst, excessSecond, excessThird)
 }
 
 // creating graph using c3js
-function createGraph(quarter, dates, first, second, third, timesFirst, timesSecond, timesThird) {
-	let firstQuarterColors = ['#e37302', '#02e364', '#0255e3'];
-	let secondQuarterColors = ['#fd8c1c', '#1cfd7d', '#1c6efd'];
-	let thirdQuarterColors = ['#fda64e', '#4efd9a', '#4e8efd'];
-	let forthQuarterColors = ['#b15902', '#02b14e', '#0242b1'];
-	let colorsDoDisplay;
-
-	switch (quarter) {
-		case 1:
-			colorsDoDisplay = firstQuarterColors;
-			break;
-		case 2:
-			colorsDoDisplay = secondQuarterColors;
-			break;
-		case 3:
-			colorsDoDisplay = thirdQuarterColors;
-			break;
-		case 4:
-			colorsDoDisplay = forthQuarterColors;
-			break;
-	}
-
+function createGraph(colorsToDisplay, dates, firstPollution, second, third, excessFirst, excessSecond, excessThird) {
+	// generating chart
 	let chart = c3.generate({
 		bindto: '#chart',
 
@@ -173,13 +187,13 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 		},
 		
 		color: {
-			pattern: colorsDoDisplay
+			pattern: colorsToDisplay
 		},
 
 	    data: {
 	        x: 'x',
 	    	xFormat: '%m/%d/%Y',
-			columns: [ dates, first ]
+			columns: [ dates, firstPollution ]
 		},
 
 	    axis: {
@@ -213,9 +227,7 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 
 		grid: {
 			y: {
-				lines: [
-					{value: 50, text: 'макс допустима', position: 'start'},
-				]
+				lines: [ { value: 50, text: 'макс допустима', position: 'start' } ]
 			}
 		},
 
@@ -255,7 +267,7 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 	
 	// try to format the y ticks
 	setTimeout(function () {
-		chart.axis.tick({y: {format: function (d) { return d + "пъти"; }}});
+		chart.axis.y.tick.format({function (d) { return d + "пъти"; }});
 	}, 5000);
 
 	// unload data with callback to loading
@@ -263,7 +275,7 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 		chart.unload({
 		  done: function() {
 			chart.load({ 
-			  columns: [ timesFirst, timesSecond, timesThird ],
+			  columns: [ excessFirst, excessSecond, excessThird ],
 			  type: 'bar' 
 			});  
 		  }
@@ -286,61 +298,167 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 		  done: function() {
 			chart.load({ 
 			  columns: [
-				first, second, third
+				firstPollution, second, third
 			  ],
 			  type: 'line' 
 			});  
 		  }
 		});
 	}, 7000);
-
-	// setTimeout(function () {
-	// 	chart.load({
-	// 		unload: [first, second, third]
-	// 	});
-	// }, 4000);
-
-	// setTimeout(function () {
-	// 	chart.load({
-	// 		columns:[ timesFirst ],
-	// 		type: 'bar'
-	// 	});
-	// }, 4500);
-
-	// setTimeout(function () {
-	// 	chart.load({
-	// 		columns: [ timesSecond ],
-	// 		type: 'bar'
-	// 	});
-	// }, 5500);
-
-	// setTimeout(function () {
-	// 	chart.load({
-	// 		columns: [ timesThird ],
-	// 		type: 'bar'
-	// 	});
-	// }, 6000);
-
-
-	// setTimeout(function () {
-	// 	chart.load({
-	// 		unload: true,
-	// 	});
-	// }, 7000);
-
-
-	// setTimeout(function () {
-	// 	chart.transform('timeseries', first);
-	// }, 7000);
-
-
-	// setTimeout(function () {
-	// 	chart.load({
-	// 		columns: [ third ],
-	// 		type: 'timeseries'
-	// 	});
-	// }, 8500);
 }
+
+function createPollutionGraph(colorsToDisplay, dates, firstPollution, pollutionSecond, pollutionThird) {
+	// generating chart
+	let chart = c3.generate({
+		bindto: '#chart',
+
+		size: { 
+			height : 500,
+			width : 1700
+		},
+		
+		color: {
+			pattern: colorsToDisplay
+		},
+
+	    data: {
+	        x: 'x',
+	    	xFormat: '%m/%d/%Y',
+			columns: [ dates, firstPollution ]
+		},
+
+	    axis: {
+	        x: {
+	            type: 'timeseries',
+	            tick: {
+	                format: '%Y-%d',
+					culling: { 
+						max: 12 
+					}
+				},
+				label: {
+					text: 'дати от месеца',
+					position: 'outer-right'
+				}
+	        },
+	        y: {
+				tick: {
+	               format: function (d) { return d + "µg/m3"; }
+				},
+				label: { 
+	        		text: 'Ниво на Фини прахови частици',
+		        	position: 'outer-middle'
+				},
+		        padding: {
+		        	top: 100, 
+		        	bottom: 50
+				},
+		    }
+	    },
+
+		grid: {
+			y: {
+				lines: [ { value: 50, text: 'макс допустима', position: 'start' } ]
+			}
+		},
+
+		zoom: {
+			enabled: true
+		},
+		
+		legend: {
+	        position: 'bottom'
+	    }
+	});
+
+	// loading second data
+	setTimeout(function () {
+		chart.load({
+			columns: [ pollutionSecond ]
+		});
+	}, 2000);
+
+	// loading third data
+	setTimeout(function () {
+		chart.load({
+			columns: [ pollutionThird ]
+		});
+	}, 3000);
+}
+
+function createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird) {
+	let excessChart = c3.generate({
+		bindto: '#chart',
+
+		size: { 
+			height : 500,
+			width : 1700
+		},
+		
+		color: {
+			pattern: colorsToDisplay
+		},
+
+	    data: {
+	        x: 'x',
+	    	xFormat: '%m/%d/%Y',
+			columns: [ dates, excessFirst ],
+			type: 'bar'
+		},
+
+	    axis: {
+	        x: {
+	            type: 'timeseries',
+	            tick: {
+	                format: '%Y-%d',
+					culling: { 
+						max: 12 
+					}
+				},
+				label: {
+					text: 'дати от месеца',
+					position: 'outer-right'
+				}
+	        },
+	        y: {
+				tick: {
+	               format: function (d) { return d + "пъти"; }
+				},
+				label: { 
+	        		text: 'ниво на превишаване',
+		        	position: 'outer-middle'
+				},
+		        padding: {
+		        	top: 100, 
+		        	bottom: 50
+				},
+		    }
+	    },
+
+		zoom: {
+			enabled: true
+		},
+		
+		legend: {
+	        position: 'bottom'
+	    }
+	});
+
+	// loading second data
+	setTimeout(function () {
+		excessChart.load({
+			columns: [ excessSecond ]
+		});
+	}, 2000);
+
+	// loading third data
+	setTimeout(function () {
+		excessChart.load({
+			columns: [ excessThird ]
+		});
+	}, 3000);
+}
+
 
 
 // entry point, pass in the desired quaterNumber
