@@ -1,18 +1,20 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="Project on open data Visualization">
-		<title>Open Data Visualization</title>
+
+<!-- Header -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Project on open data Visualization">
+	<title>Open Data Visualization</title>
  
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
- <!-- Bootstrap core JS -->
+	
+	<!-- Bootstrap core JS -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 
 	<!-- Load c3.css -->
 	<link href="stylesheets/c3.css" rel="stylesheet" type="text/css">
@@ -27,59 +29,55 @@
 	<!-- Custom styles for this template -->
 	<link href="stylesheets/cover.css" rel="stylesheet">
 
-		<style>
-			.bd-placeholder-img {
-				font-size: 1.125rem;
-				text-anchor: middle;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-			}
+	<style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
 
-			@media (min-width: 768px) {
-				.bd-placeholder-img-lg {
-					font-size: 3.5rem;
-				}
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
 			}
+		}
+	</style>
 
+	<script src="javascripts/create-graph.js" type="text/javascript"></script>
+	<script>
+		function display(number) {
+			parseData(number);
+
+			var element = document.getElementById("choice");
 			
-		</style>
+			if (number === 1) {
+				element.innerHTML = "Януари-Март";
+			}
+			if (number === 2) {
+				element.innerHTML = "Април-Юни";
+			}
+			else if (number === 3) {
+				element.innerHTML = "Юли-Септември";
+			}
+			else if (number === 4) {
+				element.innerHTML = "Октомври-Декември";
+			}
+			
+			var element = document.getElementById("content");
 
-<script src="javascripts/create-graph.js" type="text/javascript"></script>
-<script>
-	function display(number) {
-		parseData(number);
+			if (element.style.display === "none") {
+				element.style.display = "inline";
+			}
+		};
+	</script>
+</head>
 
-		var element = document.getElementById("choice");
-		
-		if (number === 1) {
-			element.innerHTML = "Януари-Март";
-		}
-		if (number === 2) {
-			element.innerHTML = "Април-Юни";
-		}
-		else if (number === 3) {
-			element.innerHTML = "Юли-Септември";
-		}
-		else if (number === 4) {
-			element.innerHTML = "Октомври-Декември";
-		}
-		
-		var element = document.getElementById("content");
-
-		if (element.style.display === "none") {
-			element.style.display = "inline";
-		}
-	};
-</script>
-
-
-
-
-	</head>
-	<body class="text-center">
-		<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+<!-- Body -->
+<body class="text-center">
+	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 	<header class="masthead mb-auto">
 		<div class="inner">
 			<h1 class="masthead-brand">Околна среда</h1>
@@ -136,14 +134,14 @@
 	</header>
 
 
-<div class="container-fluid" id="content" style="display: none;">
+	<div class="container-fluid" id="content" style="display: none;">
 		<main role="main" class="inner cover">
 				<div class="container-fluid">
-				 <div id="chart"></div>
+					<div id="chart"></div>
 				</div>
 				<script src="javascripts/create-graph.js"></script>
-			</main>   
-</div>
+		</main>   
+	</div>
 
  
 <!-- Footer -->
