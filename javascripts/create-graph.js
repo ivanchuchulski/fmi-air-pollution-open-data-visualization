@@ -247,15 +247,16 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 	setTimeout(function () {
 		chart.ygrids.remove({value:50});
 	}, 5000);
-
+	
 	// rename y label
 	setTimeout(function () {
 		chart.axis.labels({y: 'превишение в пъти'});
-	}, 4000);
-	// 
+	}, 5000);
+	
+	// try to format the y ticks
 	setTimeout(function () {
 		chart.axis.tick({y: {format: function (d) { return d + "пъти"; }}});
-	}, 4000);
+	}, 5000);
 
 	// unload data with callback to loading
 	setTimeout(function() {
@@ -267,15 +268,15 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 			});  
 		  }
 		});
-	  }, 4000);
+	  }, 5000);
 
 	// // --------third phase--------
-	// remove y grid label
+	// add y grid label
 	setTimeout(function () {
-		chart.ygrids.add({value:50, text:'макс допустима', position: 'start'});
+		chart.ygrids.add({value:50, text: 'макс допустима', position: 'start'});
 	}, 7000);
 
-	// rename y label
+	// rename y label to the original
 	setTimeout(function () {
 		chart.axis.labels({y: 'Ниво на Фини прахови частици'});
 	}, 7000);
@@ -291,7 +292,7 @@ function createGraph(quarter, dates, first, second, third, timesFirst, timesSeco
 			});  
 		  }
 		});
-	  }, 6000);
+	}, 7000);
 
 	// setTimeout(function () {
 	// 	chart.load({
