@@ -48,28 +48,31 @@
 
 <script src="javascripts/create-graph.js" type="text/javascript"></script>
 <script>
-     function display(number){
-       parseData(number);
-       var element = document.getElementById("choice");
-      
-       if (number === 2) {
-         element.innerHTML = "Април-Юни";
-       }
-       else if( number === 3) {
-         element.innerHTML = "Юли-Септември";
-       }
-       else if( number === 4){
-          element.innerHTML = "Октомври-Декември";
-       }
-       else{
-          element.innerHTML = "Януари-Март";
-       }
-       var element = document.getElementById("content");
-          if(element.style.display === "none"){
-            element.style.display = "inline";
-          }
-      };
-    </script>
+	function display(number) {
+		parseData(number);
+
+		var element = document.getElementById("choice");
+	  
+		if (number === 1) {
+			element.innerHTML = "Януари-Март";
+		}
+		if (number === 2) {
+			element.innerHTML = "Април-Юни";
+		}
+		else if (number === 3) {
+			element.innerHTML = "Юли-Септември";
+		}
+		else if (number === 4) {
+			element.innerHTML = "Октомври-Декември";
+		}
+		
+		var element = document.getElementById("content");
+
+		if (element.style.display === "none") {
+			element.style.display = "inline";
+		}
+	};
+</script>
 
 
 
@@ -121,7 +124,7 @@
                 Избор на тримесечие
               </button>
               <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button" onclick="display(1)"> Януари-Март</button>
+                <button class="dropdown-item" type="button" onclick="display(1)">Януари-Март</button>
                 <button class="dropdown-item" type="button" onclick="display(2)">Април-Юни</button>
                 <button class="dropdown-item" type="button" onclick="display(3)">Юли-Септември</button>
                 <button class="dropdown-item" type="button" onclick="display(4)">Октомври-Декември</button>
