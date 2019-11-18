@@ -5,6 +5,9 @@ function parseData(quarterToDisplay) {
 	let files = [];
 	let allResults = [];
 
+	// a number between 1 and 4
+	// quarterToDisplay = (quarterToDisplay % 4) + 1;
+
 	switch (quarterToDisplay) {
 		case 1:
 			files.push('../data/air-quality-pleven-01-2018.csv');
@@ -27,11 +30,11 @@ function parseData(quarterToDisplay) {
 			files.push('../data/air-quality-pleven-12-2018.csv');
 			break;
 		// default is the first quarter
-		default:
-			files.push('../data/air-quality-pleven-01-2018.csv');
-			files.push('../data/air-quality-pleven-02-2018.csv');
-			files.push('../data/air-quality-pleven-03-2018.csv');
-			break;
+		// default:
+		// 	files.push('../data/air-quality-pleven-01-2018.csv');
+		// 	files.push('../data/air-quality-pleven-02-2018.csv');
+		// 	files.push('../data/air-quality-pleven-03-2018.csv');
+		// 	break;
 	}
 
 	// calling paparse for each file
@@ -89,11 +92,11 @@ function prepareData(parsedData, quarter) {
 			third.push('Декември');
 			break;
 		// default we set to the first quarter
-		default:
-			first.push('Януари');
-			second.push('Февруари');
-			third.push('Март');
-			break;
+		// default:
+		// 	first.push('Януари');
+		// 	second.push('Февруари');
+		// 	third.push('Март');
+		// 	break;
 	}
 
 	// 
@@ -106,7 +109,6 @@ function prepareData(parsedData, quarter) {
 	for (let i = 0; i < limit3; i++) {
 		third.push(parsedThird[i][3]);
 	}
-
 
 	// checks
 	// console.log(parsedData);
@@ -124,38 +126,58 @@ function prepareData(parsedData, quarter) {
 	// console.log("third");
 	// console.log(third);
 
-	createGraph(dates, first, second, third);
-
+	createGraph(dates, first, second, third, quarter);
 }
 
 // creating graph using c3js
-function createGraph(dates, first, second, third) {
-	// let colors = ['#ff0000', '#00ff00','#03fcb6'];
+function createGraph(dates, first, second, third, quarter) {
+	let firstQuarterColors = ['#e37302', '#02e364', '#0255e3'];
+	let secondQuarterColors = ['#fd8c1c', '#1cfd7d', '#1c6efd'];
+	let thirdQuarterColors = ['#fda64e', '#4efd9a', '#4e8efd'];
+	let forthQuarterColors = ['#b15902', '#02b14e', '#0242b1'];
+	let colorsDoDisplay;
 
-	// generating chart
+	switch (quarter) {
+		case 1:
+			colorsDoDisplay = firstQuarterColors;
+			break;
+		case 2:
+			colorsDoDisplay = secondQuarterColors;
+			break;
+		case 3:
+			colorsDoDisplay = thirdQuarterColors;
+			break;
+		case 4:
+			colorsDoDisplay = forthQuarterColors;
+			break;
+	}
+
 	let chart = c3.generate({
 		bindto: '#chart',
+
 		size: { 
 			height : 500,
 			width : 1700
 		},
+		
+		color: {
+			pattern: colorsDoDisplay
+		},
+
 	    data: {
 	        x: 'x',
 	    	xFormat: '%m/%d/%Y',
-	        columns: [
-	        	dates,
-				first,
-				second,
-				third
-			],
+	        columns: [ dates, first, second, third ]
 		},
-		
+
 	    axis: {
 	        x: {
 	            type: 'timeseries',
 	            tick: {
 	                format: '%Y-%d',
-					culling: { max: 12 }
+					culling: { 
+						max: 12 
+					}
 				},
 				label: {
 					text: 'дати от месеца',
@@ -175,7 +197,6 @@ function createGraph(dates, first, second, third) {
 		        	bottom: 50
 				},
 		    }
-
 	    },
 
 		grid: {
