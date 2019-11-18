@@ -1,4 +1,7 @@
-// methods to parse the csv files and to plot the data
+// TODO 
+// handle missing data
+// 		use prefined value
+// 
 
 // parsing the csv using papaparse
 function parseData(quarterToDisplay) {
@@ -167,7 +170,8 @@ function createGraph(dates, first, second, third, quarter) {
 	    data: {
 	        x: 'x',
 	    	xFormat: '%m/%d/%Y',
-	        columns: [ dates, first, second, third ]
+			// columns: [ dates, first, second, third ]
+			columns: [ dates, first]
 		},
 
 	    axis: {
@@ -215,6 +219,20 @@ function createGraph(dates, first, second, third, quarter) {
 	        position: 'bottom'
 	    }
 	});
+
+	// loading second data
+	setTimeout(function () {
+		chart.load({
+			columns: [ second ]
+		});
+	}, 1500);
+
+	// loading third data
+	setTimeout(function () {
+		chart.load({
+			columns: [ third ]
+		});
+	}, 2500);
 }
 
 // entry point, pass in the desired quaterNumber
