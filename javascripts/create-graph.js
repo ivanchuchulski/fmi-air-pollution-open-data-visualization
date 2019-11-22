@@ -4,7 +4,7 @@
 // 
 
 // parsing the csv using papaparse
-function parseData(quarterToDisplay) {
+function parseData(quarterToDisplay, graphChoice) {
 	let files = [];
 	let allResults = [];
 
@@ -40,14 +40,14 @@ function parseData(quarterToDisplay) {
 
 				// callback to the prepareData method
 				if (allResults.length == files.length) {
-					prepareData(allResults, quarterToDisplay);
+					prepareData(allResults, quarterToDisplay, graphChoice);
 				}
 			}
 		});
 	}
 }
 
-function prepareData(parsedData, quarter) {
+function prepareData(parsedData, quarter, graphChoice) {
 	let parsedFirst = parsedData[0];
 	let parsedSecond = parsedData[1];
 	let parsedThird = parsedData[2];
@@ -159,20 +159,20 @@ function prepareData(parsedData, quarter) {
 	// console.log(third);
 
 	// what i want to do 
-	// if (graphChoice.localeCompare("pollution") == 0)
-	// {
-	// 	createPollutionGraph(colorsToDisplay, dates, first, second, third);
-	// }
-	// else if (graphChoice.localeCompare("excess"))
-	// {
-	// 	createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
-	// }
+	if (graphChoice == 0)
+	{
+		createPollutionGraph(colorsToDisplay, dates, first, second, third);
+	}
+	else if (graphChoice === 1)
+	{
+		createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
+	}
 
 
 	// createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
 	// createPollutionGraph(colorsToDisplay, dates, first, second, third);
 
-	createGraph(colorsToDisplay, dates, first, second, third, excessFirst, excessSecond, excessThird)
+	// createGraph(colorsToDisplay, dates, first, second, third, excessFirst, excessSecond, excessThird)
 }
 
 // creating graph using c3js
