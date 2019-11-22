@@ -47,10 +47,14 @@
 	</style>
 
 	<script src="javascripts/create-graph.js" type="text/javascript"></script>
-	<script> choice_graphic = 0; </script>
+	<script> 
+		choice_graphic = 0;
+		quarterChoice = 0; 
+		</script>
 	<script>
 		function display(number, graphicNumber) {
 			choice_graphic = graphicNumber;
+			quarterChoice = number;
 			parseData(number, graphicNumber);
 
 			var element = document.getElementById("choice");
@@ -101,8 +105,8 @@
 									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								dropdown menu </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" onclick="display(1, 0)">Graphic 1</a>
-								<a class="dropdown-item" onclick="display(2, 1)">Graphic 2</a>
+								<a class="dropdown-item" onclick="display(quarterChoice, 0)">Graphic 1</a>
+								<a class="dropdown-item" onclick="display(quarterChoice, 1)">Graphic 2</a>
 								<a class="dropdown-item" href="#"></a>
 							</div>
 						</li>
