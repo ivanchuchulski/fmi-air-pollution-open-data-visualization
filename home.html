@@ -48,15 +48,6 @@
 
 	<script src="javascripts/create-graph.js" type="text/javascript"></script>
 	<script> 
-<<<<<<< HEAD
-		choice_graphic = 0; 
-		current_quarter = 0;
-	</script>
-	<script>
-		function display(number, graphicNumber) {
-			choice_graphic = graphicNumber;
-			current_quarter = number;
-=======
 		choice_graphic = 0;
 		quarterChoice = 0; 
 		</script>
@@ -64,12 +55,17 @@
 		function display(number, graphicNumber) {
 			choice_graphic = graphicNumber;
 			quarterChoice = number;
->>>>>>> d84a0f77837d258ecb05b2a7f19c04788b365b98
 			parseData(number, graphicNumber);
 
-			let element = document.getElementById("choice");
-		
-
+			var element = document.getElementById("choice");
+			var text = document.getElementById("navbarDropdownMenuLink"); 
+			
+			if( choice_graphic === 0) {
+				text.innerHTML = "Graphic 1";
+			}
+			else if( choice_graphic === 1) {
+				text.innerHTML = "Graphic 2";
+			}
 
 			if (number === 1) {
 				element.innerHTML = "Януари-Март";
