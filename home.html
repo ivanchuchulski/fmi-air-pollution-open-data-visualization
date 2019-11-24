@@ -42,6 +42,13 @@
 
 		// method to display the graphic
 		function displayGraphic(quarterToDisplay, graphicToDisplay) {
+			
+			// check if an option has been chosen for the graphic
+			let quarterDropdown = document.getElementById("choice");
+			if(quarterDropdown.style.display === "none") {
+				quarterDropdown.style.display = "inline";
+			}
+
 			// setting global variables
 			graphicTypeChoice = graphicToDisplay;
 			quarterChoice = quarterToDisplay;
@@ -50,7 +57,7 @@
 			parseData(quarterToDisplay, graphicToDisplay);
 
 			// updating the dropdown and navbar  text
-			let quarterDropdown = document.getElementById("choice");
+			//let quarterDropdown = document.getElementById("choice");
 			let navbarDropdown = document.getElementById("navbarDropdownMenuLink"); 
 			
 			if (graphicTypeChoice === 0) {
@@ -100,7 +107,7 @@
 							<!--  Navbar image     -->
 							<a class="navbar-brand" href="home.html">
 							<img src="images/opendata_logo.svg" alt="opendata_logo" width="30" height="30" class="d-inline-block align-top">
-							Open Data Portal
+							Open Data Visualization
 							</a>
 						</li>
 						<li class="nav-item dropdown">
@@ -117,10 +124,10 @@
 			</nav>
 
 			<!--  Dropdown menu for graphic visualization   -->
-			<div class="container-fluid">
+			<div class="container-fluid ">
 					<div class="row justify-content-center">
 					<div class="btn-group">
-							<button type="button" class="btn btn-secondary dropdown-toggle" id="choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<button type="button" class="btn btn-primary dropdown-toggle" id="choice" style="display:none;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Избор на тримесечие
 							</button>
 							<div class="dropdown-menu dropdown-menu-right">
