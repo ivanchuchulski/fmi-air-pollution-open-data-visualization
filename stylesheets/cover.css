@@ -31,28 +31,10 @@ html,body {
     border-bottom: .25rem solid transparent;
 }
 
-#footerdesign {
-  font-size: 16px;
-  line-height: 1.88;
-  font-family: Merriweather,serif;
-  font-weight: 400;
-  font-style: normal;
-  color: #333;
-  -webkit-font-smoothing: antialiased;
-}
-
 .section {
   position: relative;
   padding-top: 4em;
   padding-bottom: 4em;
 }
 
-.text-center{
-  text-align: center;
-}
-
-.bg--dark-gray-2 {
-  background-color: #333;
-  color: #bbb;
-}
 
