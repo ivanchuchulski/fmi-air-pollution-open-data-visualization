@@ -182,7 +182,7 @@ function createPollutionGraph(colorsToDisplay, dates, firstPollution, pollutionS
 
 		size: { 
 			height : 500,
-			width : 1700
+			width : 1600
 		},
 		
 		color: {
@@ -260,7 +260,7 @@ function createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, ex
 
 		size: { 
 			height : 500,
-			width : 1700
+			width : 1600
 		},
 		
 		color: {

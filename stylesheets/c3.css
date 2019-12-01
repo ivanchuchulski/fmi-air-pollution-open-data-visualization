@@ -1,8 +1,11 @@
 /*-- Chart --*/
 .c3 svg {
-  font: 10px sans-serif;
-  -webkit-tap-highlight-color: transparent; }
-
+  font: 12px sans-serif;
+  -webkit-tap-highlight-color: transparent; 
+  }
+  svg {
+    overflow: auto;
+  }
 .c3 path, .c3 line {
   fill: none;
   stroke: #000; }
@@ -165,3 +168,10 @@
 .c3-chart-arc .c3-gauge-value {
   fill: #000;
   /*  font-size: 28px !important;*/ }
+
+/*User redefined css*/
+.c3-axis-y-label{
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
