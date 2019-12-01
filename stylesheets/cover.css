@@ -23,3 +23,9 @@ html,body {
   width: min-content;
   height: min-content;
 }
+
+.chart {
+  position: relative ;
+  width: min-content;
+  height: min-content;
+}
