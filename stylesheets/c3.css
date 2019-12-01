@@ -3,9 +3,7 @@
   font: 12px sans-serif;
   -webkit-tap-highlight-color: transparent; 
   }
-  svg {
-    overflow: auto;
-  }
+
 .c3 path, .c3 line {
   fill: none;
   stroke: #000; }
