@@ -1,7 +1,89 @@
-// TODO 
-// handle missing data
-// 		use predefined value
-// 
+(function () {
+	addPlotHandlers();
+	addQuarterChoiceHandlers();
+})();
+
+const PLOT_TYPES = {
+    PULLUTION_LEVEL_PLOT: 0,
+	EXCESS_LEVEL_PLOT: 1
+};
+
+const QUARTER_CHOICES = {
+    FIRST_QUARTER: 1,
+    SECOND_QUARTER: 2,
+    THIRD_QUARTER: 3,
+    FORTH_QUARTER: 4
+};
+
+let PLOT_TYPE_GLOBAL = PLOT_TYPES.PULLUTION_LEVEL_PLOT;
+let QUARTER_CHOICE_GLOBAL = QUARTER_CHOICES.FIRST_QUARTER;
+
+function addPlotHandlers() {
+	document.getElementById("pollution-level-plot")
+		.addEventListener("click", () => { displayGraphic(QUARTER_CHOICE_GLOBAL, PLOT_TYPES.PULLUTION_LEVEL_PLOT) });
+
+	document.getElementById('excess-level-plot')
+		.addEventListener("click", () => { displayGraphic(QUARTER_CHOICE_GLOBAL, PLOT_TYPES.EXCESS_LEVEL_PLOT); });
+}
+
+function addQuarterChoiceHandlers() {
+	document.getElementById('first-quarter')
+			.addEventListener("click", () => { displayGraphic(QUARTER_CHOICES.FIRST_QUARTER, PLOT_TYPE_GLOBAL) });
+
+	document.getElementById('second-quarter')
+			.addEventListener("click", () => { displayGraphic(QUARTER_CHOICES.SECOND_QUARTER, PLOT_TYPE_GLOBAL) });
+
+	document.getElementById('third-quarter')
+			.addEventListener("click", () => { displayGraphic(QUARTER_CHOICES.THIRD_QUARTER, PLOT_TYPE_GLOBAL) });
+
+	document.getElementById('forth-quarter')
+			.addEventListener("click", () => { displayGraphic(QUARTER_CHOICES.FORTH_QUARTER, PLOT_TYPE_GLOBAL) });
+}
+
+// method to display the graphic
+function displayGraphic(quarterToDisplay, graphicToDisplay) {
+
+	// check if an option has been chosen for the graphic
+	let quarterDropdown = document.getElementById("choice");
+	if (quarterDropdown.style.display === "none") {
+		quarterDropdown.style.display = "inline";
+	}
+
+	// setting global variables
+	PLOT_TYPE_GLOBAL = graphicToDisplay;
+	QUARTER_CHOICE_GLOBAL = quarterToDisplay;
+
+	// updating the dropdown and navbar  text
+	let navbarDropdown = document.getElementById("navbarDropdownMenuLink");
+
+	if (graphicToDisplay === PLOT_TYPES.PULLUTION_LEVEL_PLOT) {
+		navbarDropdown.innerHTML = "Ниво на замъряване";
+	}
+	else if (graphicToDisplay === PLOT_TYPES.EXCESS_LEVEL_PLOT) {
+		navbarDropdown.innerHTML = "Превишение в пъти";
+	}
+
+	if (quarterToDisplay === QUARTER_CHOICES.FIRST_QUARTER) {
+		quarterDropdown.innerHTML = "Януари-Март";
+	}
+	if (quarterToDisplay === QUARTER_CHOICES.SECOND_QUARTER) {
+		quarterDropdown.innerHTML = "Април-Юни";
+	}
+	else if (quarterToDisplay === QUARTER_CHOICES.THIRD_QUARTER) {
+		quarterDropdown.innerHTML = "Юли-Септември";
+	}
+	else if (quarterToDisplay === QUARTER_CHOICES.FORTH_QUARTER) {
+		quarterDropdown.innerHTML = "Октомври-Декември";
+	}
+
+	let content = document.getElementById("content");
+
+	if (content.style.display === "none") {
+		content.style.display = "inline";
+	}
+
+	parseData(quarterToDisplay, graphicToDisplay);
+};
 
 // parsing the csv using papaparse
 function parseData(quarterToDisplay, graphChoice) {
@@ -51,15 +133,21 @@ function prepareData(parsedData, quarter, graphChoice) {
 	let parsedFirst = parsedData[0];
 	let parsedSecond = parsedData[1];
 	let parsedThird = parsedData[2];
+
 	let limit1 = parsedFirst.length;
 	let limit2 = parsedSecond.length;
 	let limit3 = parsedThird.length;
 
 	// date month is fixed, but we dispay only the days 
-	let dates = ["x", "1/1/2018", "1/2/2018", "1/3/2018", "1/4/2018", "1/5/2018", "1/6/2018", "1/7/2018",
+	const dates = ["x", "1/1/2018", "1/2/2018", "1/3/2018", "1/4/2018", "1/5/2018", "1/6/2018", "1/7/2018",
 	 "1/8/2018", "1/9/2018", "1/10/2018", "1/11/2018", "1/12/2018", "1/13/2018", "1/14/2018", "1/15/2018", 
 	 "1/16/2018", "1/17/2018", "1/18/2018", "1/19/2018", "1/20/2018", "1/21/2018", "1/22/2018", "1/23/2018", 
 	 "1/24/2018", "1/25/2018", "1/26/2018", "1/27/2018", "1/28/2018", "1/29/2018", "1/30/2018", "1/31/2018"];
+
+	const firstQuarterColors = ['#e37302', '#02e364', '#0255e3'];
+	const secondQuarterColors = ['#fd8c1c', '#1cfd7d', '#1c6efd'];
+	const thirdQuarterColors = ['#fda64e', '#4efd9a', '#4e8efd'];
+	const forthQuarterColors = ['#b15902', '#02b14e', '#0242b1'];
 
 	let first = [];
 	let second = [];
@@ -69,8 +157,10 @@ function prepareData(parsedData, quarter, graphChoice) {
 	let excessSecond = [];
 	let excessThird = [];
 
+	let colorsToDisplay;
+
 	switch (quarter) {
-		case 1:
+		case QUARTER_CHOICES.FIRST_QUARTER:
 			first.push('Януари');
 			second.push('Февруари');
 			third.push('Март');
@@ -78,8 +168,11 @@ function prepareData(parsedData, quarter, graphChoice) {
 			excessFirst.push('Януари');
 			excessSecond.push('Февруари');
 			excessThird.push('Март');
+
+			colorsToDisplay = firstQuarterColors;
 			break;
-		case 2:
+
+		case QUARTER_CHOICES.SECOND_QUARTER:
 			first.push('Април');
 			second.push('Май');
 			third.push('Юни');
@@ -87,8 +180,11 @@ function prepareData(parsedData, quarter, graphChoice) {
 			excessFirst.push('Април');
 			excessSecond.push('Май');
 			excessThird.push('Юни');
+
+			colorsToDisplay = secondQuarterColors;
 			break;
-		case 3:
+			
+		case QUARTER_CHOICES.THIRD_QUARTER:
 			first.push('Юли');
 			second.push('Август');
 			third.push('Септември');
@@ -96,8 +192,11 @@ function prepareData(parsedData, quarter, graphChoice) {
 			excessFirst.push('Юли');
 			excessSecond.push('Август');
 			excessThird.push('Септември');
+
+			colorsToDisplay = thirdQuarterColors;
 			break;
-		case 4:
+
+		case QUARTER_CHOICES.FORTH_QUARTER:
 			first.push('Октомври');
 			second.push('Ноември');
 			third.push('Декември');
@@ -105,10 +204,11 @@ function prepareData(parsedData, quarter, graphChoice) {
 			excessFirst.push('Октомври');
 			excessSecond.push('Ноември');
 			excessThird.push('Декември');
+
+			colorsToDisplay = forthQuarterColors;
 			break;
 	}
 
-	// 
 	for (let i = 0; i < limit1; i++) {
 		first.push(parsedFirst[i][3]);
 		excessFirst.push(parsedFirst[i][4]);
@@ -122,57 +222,17 @@ function prepareData(parsedData, quarter, graphChoice) {
 		excessThird.push(parsedThird[i][4]);
 	}
 
-	let firstQuarterColors = ['#e37302', '#02e364', '#0255e3'];
-	let secondQuarterColors = ['#fd8c1c', '#1cfd7d', '#1c6efd'];
-	let thirdQuarterColors = ['#fda64e', '#4efd9a', '#4e8efd'];
-	let forthQuarterColors = ['#b15902', '#02b14e', '#0242b1'];
-	let colorsToDisplay;
 
-	switch (quarter) {
-		case 1:
-			colorsToDisplay = firstQuarterColors;
-			break;
-		case 2:
-			colorsToDisplay = secondQuarterColors;
-			break;
-		case 3:
-			colorsToDisplay = thirdQuarterColors;
-			break;
-		case 4:
-			colorsToDisplay = forthQuarterColors;
-			break;
-	}
-	// checks
-	// console.log(parsedData);
-	// console.log(parsedFirst);
-
-	// console.log("dates");
-	// console.log(dates);
-
-	// console.log("first");
-	// console.log(first);
-
-	// console.log("second");
-	// console.log(second);
-
-	// console.log("third");
-	// console.log(third);
-
-	// what i want to do 
-	if (graphChoice == 0)
+	switch (graphChoice)
 	{
-		createPollutionGraph(colorsToDisplay, dates, first, second, third);
+		case PLOT_TYPES.PULLUTION_LEVEL_PLOT:
+			createPollutionGraph(colorsToDisplay, dates, first, second, third);
+			break;
+		
+		case PLOT_TYPES.EXCESS_LEVEL_PLOT:
+			createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
+			break
 	}
-	else if (graphChoice === 1)
-	{
-		createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
-	}
-
-
-	// createExcessGraph(colorsToDisplay, dates, excessFirst, excessSecond, excessThird);
-	// createPollutionGraph(colorsToDisplay, dates, first, second, third);
-
-	// createGraph(colorsToDisplay, dates, first, second, third, excessFirst, excessSecond, excessThird)
 }
 
 function createPollutionGraph(colorsToDisplay, dates, firstPollution, pollutionSecond, pollutionThird) {
